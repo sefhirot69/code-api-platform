@@ -1,0 +1,8 @@
+{
+    "require-dev": {
+        "symfony/debug-pack": "^1.0"
+    },
+    "require": {
+        "doctrine/migrations": "^3.3"
+    }
+}
