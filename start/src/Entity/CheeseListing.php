@@ -24,6 +24,7 @@ use Symfony\Component\Serializer\Annotation\SerializedName;
         'put',
     ],
     shortName: 'cheeses',
+    attributes: ['pagination_items_per_page' => 10],
     denormalizationContext: [
         'groups' => ['cheese_listing:write'],
         'swagger_definition_name' => 'Write',
@@ -115,7 +116,7 @@ class CheeseListing
     }
 
     /**
-     * @Group("cheese_listing:read")
+     * @Groups("cheese_listing:read")
      *
      * @return string|null
      */
