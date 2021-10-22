@@ -2,7 +2,10 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\BooleanFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use App\Repository\CheeseListingRepository;
 use Carbon\Carbon;
 use Doctrine\ORM\Mapping as ORM;
@@ -21,13 +24,24 @@ use Symfony\Component\Serializer\Annotation\SerializedName;
     shortName: 'cheeses',
     denormalizationContext: [
         'groups' => ['cheese_listing:write'],
-        'swagger_definition_name' => 'Write'
+        'swagger_definition_name' => 'Write',
     ],
     normalizationContext: [
         'groups' => ['cheese_listing:read'],
-        'swagger_definition_name' => 'Read'
+        'swagger_definition_name' => 'Read',
     ]
-)]
+),
+    ApiFilter(
+        BooleanFilter::class,
+        properties: ['isPublished']
+    ),
+    ApiFilter(
+        SearchFilter::class,
+        properties: [
+            'title' => 'partial',
+            'description' => 'partial'
+        ]
+    )]
 class CheeseListing
 {
     /**
@@ -71,7 +85,7 @@ class CheeseListing
     {
 
         $this->createdAt = new \DateTimeImmutable();
-        $this->title = $title;
+        $this->title     = $title;
     }
 
     public function getId(): ?int
@@ -86,13 +100,11 @@ class CheeseListing
         return $this->title;
     }
 
-
     public function getDescription(): ?string
     {
 
         return $this->description;
     }
-
 
     public function setDescription(string $description): self
     {
