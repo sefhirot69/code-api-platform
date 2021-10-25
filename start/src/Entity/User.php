@@ -65,25 +65,30 @@ class User implements UserInterface
     /**
      * @ORM\OneToMany(targetEntity=CheeseListing::class, mappedBy="owner")
      */
+    #[Groups(['user:read'])]
     private $cheeseListings;
 
     public function __construct()
     {
+
         $this->cheeseListings = new ArrayCollection();
     }
 
     public function getId(): ?int
     {
+
         return $this->id;
     }
 
     public function getEmail(): ?string
     {
+
         return $this->email;
     }
 
     public function setEmail(string $email): self
     {
+
         $this->email = $email;
 
         return $this;
@@ -96,7 +101,8 @@ class User implements UserInterface
      */
     public function getUsername(): string
     {
-        return (string) $this->username;
+
+        return (string)$this->username;
     }
 
     /**
@@ -104,6 +110,7 @@ class User implements UserInterface
      */
     public function getRoles(): array
     {
+
         $roles = $this->roles;
         // guarantee every user at least has ROLE_USER
         $roles[] = 'ROLE_USER';
@@ -113,6 +120,7 @@ class User implements UserInterface
 
     public function setRoles(array $roles): self
     {
+
         $this->roles = $roles;
 
         return $this;
@@ -123,11 +131,13 @@ class User implements UserInterface
      */
     public function getPassword(): string
     {
+
         return $this->password;
     }
 
     public function setPassword(string $password): self
     {
+
         $this->password = $password;
 
         return $this;
@@ -141,6 +151,7 @@ class User implements UserInterface
      */
     public function getSalt(): ?string
     {
+
         return null;
     }
 
@@ -149,12 +160,14 @@ class User implements UserInterface
      */
     public function eraseCredentials()
     {
+
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
     }
 
     public function setUsername(string $username): self
     {
+
         $this->username = $username;
 
         return $this;
@@ -165,12 +178,14 @@ class User implements UserInterface
      */
     public function getCheeseListings(): Collection
     {
+
         return $this->cheeseListings;
     }
 
     public function addCheeseListing(CheeseListing $cheeseListing): self
     {
-        if (!$this->cheeseListings->contains($cheeseListing)) {
+
+        if (! $this->cheeseListings->contains($cheeseListing)) {
             $this->cheeseListings[] = $cheeseListing;
             $cheeseListing->setOwner($this);
         }
@@ -180,6 +195,7 @@ class User implements UserInterface
 
     public function removeCheeseListing(CheeseListing $cheeseListing): self
     {
+
         if ($this->cheeseListings->removeElement($cheeseListing)) {
             // set the owning side to null (unless already changed)
             if ($cheeseListing->getOwner() === $this) {
@@ -189,4 +205,5 @@ class User implements UserInterface
 
         return $this;
     }
+
 }
