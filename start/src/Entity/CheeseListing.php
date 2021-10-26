@@ -71,7 +71,7 @@ class CheeseListing
     /**
      * @ORM\Column(type="string", length=255)
      */
-    #[Groups(['cheese_listing:read', 'cheese_listing:write', 'user:read'])]
+    #[Groups(['cheese_listing:read', 'cheese_listing:write', 'user:read', 'user:write'])]
     #[Assert\NotBlank]
     #[Assert\Length(
         min:2,
@@ -84,7 +84,7 @@ class CheeseListing
      * @ORM\Column(type="text")
      * @Groups({"cheese_listing:read"})
      */
-    #[Groups(['cheese_listing:read', 'user:read'])]
+    #[Groups(['cheese_listing:read', 'user:read', 'user:write'])]
     #[Assert\NotBlank]
     private $description;
 
@@ -94,7 +94,7 @@ class CheeseListing
      * @ORM\Column(type="integer")
      */
     #[Assert\NotBlank]
-    #[Groups(['cheese_listing:read', 'cheese_listing:write', 'user:read'])]
+    #[Groups(['cheese_listing:read', 'cheese_listing:write', 'user:read', 'user:write'])]
     private $price;
 
     /**
@@ -165,9 +165,9 @@ class CheeseListing
     /**
      * The description of the cheese as raw text.
      *
-     * @Groups({"cheese_listing:write"})
      * @SerializedName("description")
      */
+    #[Groups(['cheese_listing:write', 'user:write'])]
     public function setTextDescription(string $description): self
     {
 
