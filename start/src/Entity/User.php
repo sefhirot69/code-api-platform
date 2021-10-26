@@ -65,7 +65,7 @@ class User implements UserInterface
     /**
      * @ORM\OneToMany(targetEntity=CheeseListing::class, mappedBy="owner")
      */
-    #[Groups(['user:read'])]
+    #[Groups(['user:read', 'user:write'])]
     private $cheeseListings;
 
     public function __construct()
