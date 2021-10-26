@@ -51,6 +51,8 @@ use Symfony\Component\Validator\Constraints as Assert;
         properties: [
             'title' => 'partial',
             'description' => 'partial',
+            'owner' => 'exact',
+            'owner.username' => 'partial'
         ]
     ),
     ApiFilter(
